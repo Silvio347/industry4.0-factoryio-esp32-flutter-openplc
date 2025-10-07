@@ -13,6 +13,12 @@ This setup enables remote control, real-time monitoring, and parameter tuning (l
 
 ---
 
+🎥 Demonstration
+
+📺 Video: YouTube - Industry 4.0 with Flutter, ESP32 and Factory I/O
+
+---
+
 ## ⚙️ System Architecture
 
 **Main components:**
