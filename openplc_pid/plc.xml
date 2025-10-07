@@ -1,0 +1,491 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0201" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ns1="http://www.plcopen.org/xml/tc6_0201">
+  <fileHeader companyName="Unknown" productName="Unnamed" productVersion="1" creationDateTime="2025-08-20T13:24:04"/>
+  <contentHeader name="Unnamed" modificationDateTime="2025-09-05T15:15:17">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="10" y="10"/>
+      </fbd>
+      <ld>
+        <scaling x="10" y="10"/>
+      </ld>
+      <sfc>
+        <scaling x="10" y="10"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes/>
+    <pous>
+      <pou name="program0" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="I_PbFill" address="%IX100.0">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="Q_FillLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="HMI_Fill" address="%QX100.2">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="Q_LightDischarge">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="HMI_Dis" address="%QX100.3">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Filling" address="%QX100.4">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Discharging" address="%QX100.5">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="AutoMode" address="%QX100.6">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Q_FillValve" address="%QW100">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Q_DischargeValve" address="%QW101">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Q_Display" address="%QW102">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="LevelRaw" address="%IW100">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="I_PbDischarge" address="%IX100.1">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="LevelPct">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="TimeFilling">
+              <type>
+                <TIME/>
+              </type>
+            </variable>
+            <variable name="TimeFillingInt">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="TimeDiscarging">
+              <type>
+                <TIME/>
+              </type>
+            </variable>
+            <variable name="TimeDiscargingInt">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="pbFill_prev">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="pbDis_prev">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="r_edge_fill">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="r_edge_auto">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="f_edge_dis">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="PID0">
+              <type>
+                <derived name="PID"/>
+              </type>
+            </variable>
+            <variable name="AutoMode_prev">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="SP" address="%MD100">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="30.0"/>
+              </initialValue>
+            </variable>
+            <variable name="PV" address="%MD102">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="PV_lo" address="%QW206">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="PV_hi" address="%QW207">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="SP_lo" address="%QW208">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="SP_hi" address="%QW209">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="U_Manual">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="U_Auto">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="Kp" address="%MD200">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="4.0"/>
+              </initialValue>
+            </variable>
+            <variable name="Ki" address="%MD202">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0.02"/>
+              </initialValue>
+            </variable>
+            <variable name="Kd" address="%MD204">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0.4"/>
+              </initialValue>
+            </variable>
+            <variable name="Kp_lo" address="%QW200">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kp_hi" address="%QW201">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Ki_lo" address="%QW202">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Ki_hi" address="%QW203">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kd_lo" address="%QW204">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kd_hi" address="%QW205">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="tmp">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="IntTerm">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Ts_s">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0.1"/>
+              </initialValue>
+            </variable>
+            <variable name="error">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="error_prev">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="derror">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="_raw_di">
+              <type>
+                <DINT/>
+              </type>
+            </variable>
+            <variable name="_loDW">
+              <type>
+                <DWORD/>
+              </type>
+            </variable>
+            <variable name="_hiDW">
+              <type>
+                <DWORD/>
+              </type>
+            </variable>
+            <variable name="_raw_dw">
+              <type>
+                <DWORD/>
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[    _loDW   := WORD_TO_DWORD(INT_TO_WORD(Kp_lo));
+    _hiDW   := SHL(WORD_TO_DWORD(INT_TO_WORD(Kp_hi)), 16);
+    _raw_dw := _loDW OR _hiDW;
+    _raw_di := DWORD_TO_DINT(_raw_dw);
+    Kp := DINT_TO_REAL(_raw_di) / 10000.0;
+
+    _loDW   := WORD_TO_DWORD(INT_TO_WORD(Ki_lo));
+    _hiDW   := SHL(WORD_TO_DWORD(INT_TO_WORD(Ki_hi)), 16);
+    _raw_dw := _loDW OR _hiDW;
+    _raw_di := DWORD_TO_DINT(_raw_dw);
+    Ki := DINT_TO_REAL(_raw_di) / 10000.0;
+
+    _loDW   := WORD_TO_DWORD(INT_TO_WORD(Kd_lo));
+    _hiDW   := SHL(WORD_TO_DWORD(INT_TO_WORD(Kd_hi)), 16);
+    _raw_dw := _loDW OR _hiDW;
+    _raw_di := DWORD_TO_DINT(_raw_dw);
+    Kd := DINT_TO_REAL(_raw_di) / 10000.0;
+
+    _loDW   := WORD_TO_DWORD(INT_TO_WORD(SP_lo));
+    _hiDW   := SHL(WORD_TO_DWORD(INT_TO_WORD(SP_hi)), 16);
+    _raw_dw := _loDW OR _hiDW;
+    _raw_di := DWORD_TO_DINT(_raw_dw);
+    SP := DINT_TO_REAL(_raw_di) / 10000.0;
+
+    (* PV já está em 0..1 (ex.: calculado de LevelRaw). Exporta em LO/HI ×10000 *)
+    _raw_di := REAL_TO_DINT(PV * 10000.0);
+    _raw_dw := DINT_TO_DWORD(_raw_di);
+    PV_lo := WORD_TO_INT(DWORD_TO_WORD(_raw_dw));
+    PV_hi := WORD_TO_INT(DWORD_TO_WORD(SHR(_raw_dw, 16)));
+
+
+    (* ===== Factory IO Inputs ===== *)
+    r_edge_fill := I_PbFill AND NOT pbFill_prev;
+    f_edge_dis  := pbDis_prev AND NOT I_PbDischarge;
+    pbFill_prev := I_PbFill;
+    pbDis_prev  := I_PbDischarge;
+
+
+    IF r_edge_fill AND NOT Discharging AND NOT AutoMode THEN
+        Filling := TRUE;
+
+        (* reset PID ao iniciar *)
+        IntTerm    := 0.0;
+        error_prev := 0.0;
+    END_IF;
+
+    IF f_edge_dis AND NOT AutoMode THEN
+        Discharging := TRUE; 
+        Filling     := FALSE;
+
+        (* reset geral ao descarregar *)
+        IntTerm    := 0.0;
+        error_prev := 0.0;
+    END_IF;
+
+    (* ======= PV =======  (0..1) *)
+
+    tmp := INT_TO_REAL(LevelRaw) / 1000.0;
+    IF tmp < 0.0 THEN tmp := 0.0; END_IF;
+    IF tmp > 1.0 THEN tmp := 1.0; END_IF;
+
+    LevelPct := tmp * 100.0;    (* 0..100 *)
+    PV       := tmp;            (* 0..1 *)
+
+    (* auto stop da descarga quando ~0% *)
+
+    IF Discharging AND ((PV * 100.0) <= 1.0) THEN
+        Discharging := FALSE;
+    END_IF;
+
+    (* ======= AUTO/MAN MODE =======  *)
+
+    r_edge_auto := AutoMode AND NOT AutoMode_prev; 
+    AutoMode_prev := AutoMode;
+
+    IF AutoMode THEN
+        (* reset só quando entra em AUTO *)
+
+        IF r_edge_auto THEN
+            Filling     := FALSE;
+            Discharging := FALSE;
+            IntTerm     := 0.0;
+            error_prev  := 0.0;
+            U_Auto      := 0.0;
+        END_IF;
+
+        (* ---------- PID SEMPRE ATIVO NO AUTO ---------- *)
+
+        error   := (SP / 100.0) - PV;
+        IntTerm := IntTerm + (Ki * error * Ts_s);
+        derror  := (error - error_prev) / Ts_s;
+
+        U_Auto := (Kp * error) + IntTerm + (Kd * derror);
+
+        (* saturação *)
+
+        IF U_Auto >  1.0 THEN U_Auto :=  1.0; END_IF;
+        IF U_Auto < -1.0 THEN U_Auto := -1.0; END_IF;
+
+        (* anti-windup *)
+
+        IF ((U_Auto =  1.0) AND (error > 0.0)) OR
+           ((U_Auto = -1.0) AND (error < 0.0)) THEN
+            IntTerm := IntTerm - (Ki * error * Ts_s);
+        END_IF;
+
+        (* mapeamento 0..1000 e estados *)
+
+        IF U_Auto > 0.0 THEN
+            Q_FillValve      := REAL_TO_INT(1000.0 *  U_Auto);
+            Q_DischargeValve := 0;
+            Filling          := TRUE;
+            Discharging      := FALSE;
+
+        ELSIF U_Auto < 0.0 THEN
+            Q_DischargeValve := REAL_TO_INT(1000.0 * (-U_Auto));
+            Q_FillValve      := 0;
+            Filling          := FALSE;
+            Discharging      := TRUE;
+
+        ELSE
+            Q_FillValve      := 0;
+            Q_DischargeValve := 0;
+            Filling          := FALSE;
+            Discharging      := FALSE;
+        END_IF;
+    ELSE
+    (* ---------- MANUAL ---------- *)
+
+        IF HMI_Dis THEN
+            Q_DischargeValve := 1000;
+            Q_FillValve      := 0;
+            Discharging      := TRUE;
+            Filling          := FALSE;
+
+        ELSIF HMI_Fill THEN
+            Q_FillValve      := 1000;   (* abre 100% *)
+            Q_DischargeValve := 0;
+            Filling          := TRUE;
+            Discharging      := FALSE;
+
+        ELSE
+            HMI_Dis          := 0;
+            Q_FillValve      := 0;
+            Q_DischargeValve := 0;
+            Filling          := FALSE;
+            Discharging      := FALSE;
+        END_IF;
+    END_IF;
+
+    error            := (SP / 100.0) - PV;
+    error_prev       := error;
+    Q_Display        := REAL_TO_INT(PV * 100.0);
+    Q_FillLight      := Filling;
+    Q_LightDischarge := Discharging;]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Config0">
+        <resource name="Res0">
+          <task name="task0" priority="0" interval="T#20ms">
+            <pouInstance name="instance0" typeName="program0"/>
+          </task>
+        </resource>
+      </configuration>
+    </configurations>
+  </instances>
+</project>
